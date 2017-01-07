@@ -1,0 +1,83 @@
+
+# Copyright (C) 2009 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+
+STATIC_INCLUDE_PATH=/home/yyd/android_test/ffmpeg-android/build/armeabi-v7a/include
+STATIC_LIB_PATH:=/home/yyd/android_test/ffmpeg-android/build/armeabi-v7a/lib
+
+LOCAL_MODULE := libavcodec
+LOCAL_EXPORT_C_INCLUDES := $(STATIC_INCLUDE_PATH)
+LOCAL_SRC_FILES := $(STATIC_LIB_PATH)/libavcodec.a
+include $(PREBUILT_STATIC_LIBRARY)
+include $(CLEAR_VARS)
+
+STATIC_INCLUDE_PATH=/home/yyd/android_test/ffmpeg-android/build/armeabi-v7a/include
+STATIC_LIB_PATH:=/home/yyd/android_test/ffmpeg-android/build/armeabi-v7a/lib
+LOCAL_MODULE := libavformat
+LOCAL_EXPORT_C_INCLUDES := $(STATIC_INCLUDE_PATH)
+LOCAL_SRC_FILES := $(STATIC_LIB_PATH)/libavformat.a
+include $(PREBUILT_STATIC_LIBRARY)
+include $(CLEAR_VARS)
+
+STATIC_INCLUDE_PATH=/home/yyd/android_test/ffmpeg-android/build/armeabi-v7a/include
+STATIC_LIB_PATH:=/home/yyd/android_test/ffmpeg-android/build/armeabi-v7a/lib
+LOCAL_MODULE := libavutil
+LOCAL_EXPORT_C_INCLUDES := $(STATIC_INCLUDE_PATH)
+LOCAL_SRC_FILES := $(STATIC_LIB_PATH)/libavutil.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+
+STATIC_INCLUDE_PATH=/home/yyd/android_test/ffmpeg-android/build/armeabi-v7a/include
+STATIC_LIB_PATH:=/home/yyd/android_test/ffmpeg-android/build/armeabi-v7a/lib
+LOCAL_MODULE := libswscale
+LOCAL_EXPORT_C_INCLUDES := $(STATIC_INCLUDE_PATH)
+LOCAL_SRC_FILES := $(STATIC_LIB_PATH)/libswscale.a
+include $(PREBUILT_STATIC_LIBRARY)
+include $(CLEAR_VARS)
+
+STATIC_INCLUDE_PATH=/home/yyd/android_test/ffmpeg-android/build/armeabi-v7a/include
+STATIC_LIB_PATH:=/home/yyd/android_test/ffmpeg-android/build/armeabi-v7a/lib
+LOCAL_MODULE := libswresample
+LOCAL_EXPORT_C_INCLUDES := $(STATIC_INCLUDE_PATH)
+LOCAL_SRC_FILES := $(STATIC_LIB_PATH)/libswresample.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+SRC_PATH:=$(LOCAL_PATH)/src/bbcvplayercore
+LOCAL_C_INCLUDES := $(STATIC_INCLUDE_PATH)
+LOCAL_MODULE    := bbcvPlayCore
+LOCAL_SRC_FILES := $(SRC_PATH)/Decoder.cpp \
+		$(SRC_PATH)/TSStreamInfo.cpp \
+		$(SRC_PATH)/RecvQueue.cpp
+#LOCAL_LDFLAGS += $(STATIC_LIB_PATH)/libavformat.a \
+			 $(STATIC_LIB_PATH)/libavcodec.a \
+			$(STATIC_LIB_PATH)/libavutil.a \
+			$(STATIC_LIB_PATH)/libswscale.a \
+			$(STATIC_LIB_PATH)/libswresample.a 
+#LOCAL_STATIC_LIBRARIES :=avcodec_my avformat_my avutil_my swscale_my swresample_my
+
+LOCAL_STATIC_LIBRARIES :=libavcodec \
+			libavformat \
+			libavutil \
+			libswscale \
+			libswresample
+
+include $(BUILD_STATIC_LIBRARY)
+#include $(BUILD_SHARED_LIBRARY)
+                                  

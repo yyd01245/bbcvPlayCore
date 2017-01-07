@@ -1,0 +1,111 @@
+
+# Copyright (C) 2009 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+SHARED_LIB_PATH := /home/yyd/android_test/JniTest/app/jni_test/testJni_Static/jni/libtest/libs/armeabi-v7a
+LOCAL_EXPORT_C_INCLUDES := /home/yyd/android_test/JniTest/app/jni_test/testJni_Static/jni/libtest/jni/src
+LOCAL_MODULE := testa
+LOCAL_SRC_FILES := $(SHARED_LIB_PATH)/libtest.so
+include $(PREBUTIL_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+STATIC_LIB_PATH:=/home/yyd/android_test/ffmpeg-3.0.2/android/arm/lib
+STATIC_INCLUDE_PATH:=/home/yyd/android_test/ffmpeg-3.0.2/android/arm/include
+
+LOCAL_MODULE := avcodec
+LOCAL_EXPORT_C_INCLUDES := $(STATIC_INCLUDE_PATH)
+LOCAL_EXPORT_CFLAGS := -I$(STATIC_INCLUDE_PATH)
+LOCAL_CFLAGS := -I$(STATIC_INCLUDE_PATH)
+LOCAL_EXPORT_LDFLAGS := -llog
+LOCAL_SRC_FILES := $(STATIC_LIB_PATH)/libavcodec.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+STATIC_LIB_PATH:=/home/yyd/android_test/ffmpeg-3.0.2/android/arm/lib
+STATIC_INCLUDE_PATH:=/home/yyd/android_test/ffmpeg-3.0.2/android/arm/include
+LOCAL_MODULE := avformat
+LOCAL_EXPORT_C_INCLUDES := $(STATIC_INCLUDE_PATH)
+LOCAL_EXPORT_CFLAGS := -I$(STATIC_INCLUDE_PATH)
+LOCAL_CFLAGS := -I$(STATIC_INCLUDE_PATH)
+LOCAL_SRC_FILES := $(STATIC_LIB_PATH)/libavformat.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+STATIC_LIB_PATH:=/home/yyd/android_test/ffmpeg-3.0.2/android/arm/lib
+STATIC_INCLUDE_PATH:=/home/yyd/android_test/ffmpeg-3.0.2/android/arm/include
+LOCAL_MODULE := avutil
+LOCAL_EXPORT_C_INCLUDES := $(STATIC_INCLUDE_PATH)
+LOCAL_EXPORT_CFLAGS := -I$(STATIC_INCLUDE_PATH)
+LOCAL_CFLAGS := -I$(STATIC_INCLUDE_PATH)
+LOCAL_SRC_FILES := $(STATIC_LIB_PATH)/libavutil.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+STATIC_LIB_PATH:=/home/yyd/android_test/ffmpeg-3.0.2/android/arm/lib
+STATIC_INCLUDE_PATH:=/home/yyd/android_test/ffmpeg-3.0.2/android/arm/include
+LOCAL_MODULE := swscale
+LOCAL_EXPORT_C_INCLUDES := $(STATIC_INCLUDE_PATH)
+LOCAL_EXPORT_CFLAGS := -I$(STATIC_INCLUDE_PATH)
+LOCAL_CFLAGS := -I$(STATIC_INCLUDE_PATH)
+LOCAL_SRC_FILES := $(STATIC_LIB_PATH)/libswscale.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+STATIC_LIB_PATH:=/home/yyd/android_test/ffmpeg-3.0.2/android/arm/lib
+STATIC_INCLUDE_PATH:=/home/yyd/android_test/ffmpeg-3.0.2/android/arm/include
+LOCAL_MODULE := swresample
+LOCAL_EXPORT_C_INCLUDES := $(STATIC_INCLUDE_PATH)
+LOCAL_EXPORT_CFLAGS := -I$(STATIC_INCLUDE_PATH)
+LOCAL_CFLAGS := -I$(STATIC_INCLUDE_PATH)
+LOCAL_SRC_FILES := $(STATIC_LIB_PATH)/libswresample.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+STATIC_LIB_PATH:=/home/yyd/android_test/SDL-android/android-project/obj/local/armeabi-v7a
+STATIC_INCLUDE_PATH:=/home/yyd/android_test/SDL-android/android-project/jni/SDL/include
+LOCAL_MODULE := sdl2
+LOCAL_EXPORT_C_INCLUDES := $(STATIC_INCLUDE_PATH)
+LOCAL_EXPORT_CFLAGS := -I$(STATIC_INCLUDE_PATH)
+LOCAL_CFLAGS := -I$(STATIC_INCLUDE_PATH)
+LOCAL_SRC_FILES := $(STATIC_LIB_PATH)/libSDL2.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+
+include $(CLEAR_VARS)
+STATIC_LIB_PATH:=/home/yyd/android_test/ffmpeg-3.0.2/android/arm/lib
+LOCAL_C_INCLUDES += $(LOCAL_PATH) \
+                /home/yyd/android_test/ffmpeg-3.0.2/android/arm/include \
+		/home/yyd/android_test/SDL-android/android-project/jni/SDL/include
+SRC_PATH:=$(LOCAL_PATH)/src/bbcvplayercore
+SRC_SDLPATH:=$(LOCAL_PATH)/src/bbcvRender
+LOCAL_MODULE    := bbcvPlayCore
+LOCAL_SRC_FILES := $(SRC_PATH)/Decoder.cpp \
+		$(SRC_PATH)/TSStreamInfo.cpp \
+		$(SRC_PATH)/RecvQueue.cpp   \
+		$(SRC_SDLPATH)/bbcvrender.cpp
+
+#LOCAL_ALLOW_UNDEFINED_SYMBOLS := true
+#LOCAL_STATIC_LIBRARIES:=/home/yyd/android_test/JniTest/app/jni_test/testJni//obj/local/armeabi-v7a/libtest.a
+#LOCAL_STATIC_LIBRARIES:=test
+#LOCAL_LDFLAGS +=$(STATIC_LIB_PATH)/libtest.a
+LOCAL_LDLIBS := -llog -lz -lGLESv1_CM -lGLESv2 -landroid  
+#LOCAL_SHARED_LIBRARIES := testa
+LOCAL_STATIC_LIBRARIES :=  avformat avcodec avutil swresample swscale sdl2
+#LOCAL_LDLIBS:=
+
+include $(BUILD_SHARED_LIBRARY)
+#include $(BUILD_STATIC_LIBRARY)
